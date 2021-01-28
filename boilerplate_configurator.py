@@ -18,8 +18,9 @@ def main():
         root = os.getcwd()
         all_files = [os.path.join(path, name) for path, subdirs, files in os.walk(root) for name in files]
         all_files = [file for file in all_files if '/__pycache__' not in file]
+        all_files = [file for file in all_files if '/.git' not in file]
         while True:
-            project_rename = input('Enter name of django project. Make sure there is no existing directory of the same name\n')
+            project_rename = input('Enter name of django project.\nMake sure there is no existing directory of the same name\n')
             flag = validate_filename(project_rename)
             if flag:
                 break
