@@ -21,6 +21,5 @@ $ python3 boilerplate_configurator.py
 $ <project_name>
 ```
 ### TODO
- - Try using Custom User model with fixtures for admin user
-  1. AUTH USER MODEL
-  2. get_user_model()
+ - Try using Custom User model with fixtures for admin user like AUTH USER MODEL, get_user_model()
+ - Check for any missing data or improper imports
