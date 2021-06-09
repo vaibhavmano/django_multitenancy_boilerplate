@@ -6,7 +6,7 @@ from multi_tenancy.views import CustomTokenView, CustomRevokeTokenView
 urlpatterns = [
     path('token', CustomTokenView.as_view(), name='custom_token'),
     path(
-        'revoke_token', CustomRevokeTokenView.as_view(),
+        'revoke-token', CustomRevokeTokenView.as_view(),
         name='custom_revoke_token'
     ),
 ]
