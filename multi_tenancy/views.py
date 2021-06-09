@@ -5,9 +5,6 @@ from django.views.decorators.debug import sensitive_post_parameters
 from oauth2_provider.models import get_access_token_model
 from oauth2_provider.signals import app_authorized
 import json
-import os
-import sys
-import logging
 
 from multi_tenancy.wrapper import CustomResponse
 
@@ -31,15 +28,20 @@ class CustomTokenView(TokenView):
                     token=token)
                 body = CustomResponse.build_response(True, body)
                 body = json.dumps(body)
+                response = HttpResponse(content=body, status=200)
+                for k, v in headers.items():
+                    response[k] = v
+                return response
         else:
             body = json.loads(body)
+            body['error'] = 'Username or Password is incorrect'
             body = CustomResponse.build_response(False, [body['error']])
             body = json.dumps(body)
 
-        response = HttpResponse(content=body, status=status)
-        for k, v in headers.items():
-            response[k] = v
-        return response
+            response = HttpResponse(content=body, status=422)
+            for k, v in headers.items():
+                response[k] = v
+            return response
 
 
 class CustomRevokeTokenView(RevokeTokenView):
@@ -58,13 +60,17 @@ class CustomRevokeTokenView(RevokeTokenView):
             }
             body = CustomResponse.build_response(True, body)
             body = json.dumps(body)
+            response = HttpResponse(content=body or "", status=200)
+            for k, v in headers.items():
+                response[k] = v
+            return response
+        
         else:
             body = json.loads(body)
             body = CustomResponse.build_response(False, [body['error']])
             body = json.dumps(body)
 
-        response = HttpResponse(content=body or "", status=status)
-
-        for k, v in headers.items():
-            response[k] = v
-        return response
+            response = HttpResponse(content=body or "", status=422)
+            for k, v in headers.items():
+                response[k] = v
+            return response
