@@ -1,6 +1,10 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from django_enum_choices.fields import EnumChoiceField
+from django_enum_choices.choice_builders import attribute_value
+
+from multi_tenancy.models.lookups import UserRole
 
 
 class Tenant(models.Model):
@@ -31,8 +35,9 @@ class TenantBaseModel(models.Model):
 
 
 class TenantUser(TenantBaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    superuser = models.BooleanField(default=False)
+    id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = EnumChoiceField(UserRole, choice_builder=attribute_value, default=UserRole.USER)
 
     def __str__(self):
         return self.user.username
@@ -40,7 +45,3 @@ class TenantUser(TenantBaseModel):
     class Meta:
         db_table = "tenantuser"
 
-    def get_username(user_id):
-        user = TenantUser.objects.all()
-        user = TenantUser.objects.get(user_id=user_id)
-        return user.user.username
