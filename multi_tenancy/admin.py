@@ -1,6 +1,7 @@
 from django.contrib import admin
-
+from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
 from multi_tenancy.models.admin_models import TenantUser, Tenant
 
 
@@ -18,4 +19,6 @@ class TenantAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 
 
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 admin.site.register(Tenant, TenantAdmin)
