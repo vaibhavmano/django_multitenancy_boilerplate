@@ -1,9 +1,9 @@
-Django==3.1
+Django==3.2
 django-cors-headers==3.4.0
 django-enum-choices==2.1.2
 django-rest-marshmallow==4.0.2
 django-storages==1.9.1
-djangorestframework==3.11.0
+djangorestframework==3.12.4
 marshmallow==3.6.1
 pytest==5.3.5
 pytest-django==3.9.0
