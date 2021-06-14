@@ -45,7 +45,7 @@ pipelines:
           services:
             - docker
           script:
-            - export TAG=staging
+            - export TAG=development
             - export IMAGE_NAME=$DOCKER_IMAGE_NAME:$TAG
             - docker build -t $IMAGE_NAME .
             - pipe: atlassian/aws-ecr-push-image:1.1.3
