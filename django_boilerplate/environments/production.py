@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 
-from multi_tenancy.config import DjangoConfig, AwsConfig, \
+from django_boilerplate.config import DjangoConfig, AwsConfig, \
     DatabaseConfig
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
